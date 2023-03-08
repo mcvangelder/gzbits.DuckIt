@@ -1,17 +1,13 @@
-using gzbits.DuckIt.Mvc.ResultExecutors;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
+using gzbits.DuckIt.Mvc.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().UseDuckIt();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.AddSingleton<IActionResultExecutor<ObjectResult>, ProducesResponseTypeResultExecutor>();
 
 var app = builder.Build();
 
