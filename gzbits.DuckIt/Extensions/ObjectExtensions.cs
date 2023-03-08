@@ -3,9 +3,9 @@ using System.Diagnostics;
 using System.Dynamic;
 using System.Reflection;
 
-namespace gzbits.Serialization
+namespace gzbits.DuckIt.Extensions
 {
-    internal static class ObjectExtensions
+    public static class ObjectExtensions
     {
         public static dynamic ToDynamic<TSchema>(this object obj)
         {
@@ -15,7 +15,7 @@ namespace gzbits.Serialization
         public static dynamic ToDynamic(this object obj, Type schemaType)
         {
             Type inputType = (obj ?? new object()).GetType();
-            if(inputType.IsAssignableTo(typeof(IEnumerable)) || schemaType.IsAssignableTo(typeof(IEnumerable)))
+            if (inputType.IsAssignableTo(typeof(IEnumerable)) || schemaType.IsAssignableTo(typeof(IEnumerable)))
             {
                 throw new NotSupportedException($"One of the following is enumerable and is not supported: {inputType.FullName}, {schemaType.FullName}");
             }

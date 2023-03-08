@@ -1,11 +1,11 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace gzbits.Serialization
+namespace gzbits.DuckIt.Extensions
 {
     public static class TypeExtensions
     {
