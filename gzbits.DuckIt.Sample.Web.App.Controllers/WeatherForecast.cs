@@ -1,4 +1,4 @@
-namespace gzbits.DuckIt.Tests.Web.App.Controllers
+namespace gzbits.DuckIt.Sample.Web.App.Controllers
 {
     public class WeatherForecast
     {

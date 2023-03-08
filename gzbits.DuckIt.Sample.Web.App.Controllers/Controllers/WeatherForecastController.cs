@@ -1,7 +1,7 @@
 using gzbits.DuckIt.Sample.Web.App.Controllers.Schemas;
 using Microsoft.AspNetCore.Mvc;
 
-namespace gzbits.DuckIt.Tests.Web.App.Controllers.Controllers
+namespace gzbits.DuckIt.Sample.Web.App.Controllers.Controllers
 {
     [ApiController]
     [Route("[controller]")]
