@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gzbits.DuckIt.Mvc", "gzbits
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gzbits.DuckIt.SampleApp", "gzbits.DuckIt.SampleApp", "{5D8C15D9-BE62-4CA7-ABF0-397A8B480458}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gzbits.DuckIt.Sample.Web.App.Controllers", "gzbits.DuckIt.Sample.Web.App.Controllers\gzbits.DuckIt.Sample.Web.App.Controllers.csproj", "{094BAD60-7F26-4C6C-A0FD-2EEF3BF43D09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gzbits.DuckIt.Sample.Web.App.Controllers", "gzbits.DuckIt.Sample.Web.App.Controllers\gzbits.DuckIt.Sample.Web.App.Controllers.csproj", "{094BAD60-7F26-4C6C-A0FD-2EEF3BF43D09}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gzbits.DuckIt.Tests", "gzbits.DuckIt.Tests\gzbits.DuckIt.Tests.csproj", "{3B39A693-8454-4869-B40B-800E6D5255CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{094BAD60-7F26-4C6C-A0FD-2EEF3BF43D09}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{094BAD60-7F26-4C6C-A0FD-2EEF3BF43D09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{094BAD60-7F26-4C6C-A0FD-2EEF3BF43D09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B39A693-8454-4869-B40B-800E6D5255CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B39A693-8454-4869-B40B-800E6D5255CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B39A693-8454-4869-B40B-800E6D5255CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B39A693-8454-4869-B40B-800E6D5255CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
