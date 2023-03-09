@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Dynamic;
 
 using gzbits.DuckIt.Extensions;
 
@@ -101,7 +102,21 @@ namespace gzbits.DuckIt.Tests.Extensions
         public class MultiplePropertySchemas
         {
 
+            [TestMethod]
+            public void IntAndStringProperty_ReturnsDynamicWithPropertyNames()
+            {
+                SourceObjects.MultiProperty.TwoProperties_Int_String objectWithIntAndStringProperty = new() { StringValue = "value", IntValue = 1 };
 
+                dynamic dynamicWithIntAndStringProperty = objectWithIntAndStringProperty.ToDynamic<Schemas.MultiProperty.ReadOnly.TwoProperties_Int_String>();
+                Assert.AreEqual("value", dynamicWithIntAndStringProperty?.StringValue);
+                Assert.AreEqual(1, dynamicWithIntAndStringProperty?.IntValue);
+                Assert.AreEqual(2, (dynamicWithIntAndStringProperty as ExpandoObject)?.Count());
+
+                dynamicWithIntAndStringProperty = objectWithIntAndStringProperty.ToDynamic<Schemas.MultiProperty.ReadWrite.TwoProperties_Int_String>();
+                Assert.AreEqual("value", dynamicWithIntAndStringProperty?.StringValue);
+                Assert.AreEqual(1, dynamicWithIntAndStringProperty?.IntValue);
+                Assert.AreEqual(2, (dynamicWithIntAndStringProperty as ExpandoObject)?.Count());
+            }
         }
 
         private class SourceObjects
@@ -121,6 +136,15 @@ namespace gzbits.DuckIt.Tests.Extensions
                 public class EnumerableStringProperty
                 {
                     public string[]? Value { get; set; }
+                }
+            }
+
+            public class MultiProperty
+            {
+                public class TwoProperties_Int_String
+                {
+                    public int IntValue { get; set; }
+                    public string? StringValue { get; set; }
                 }
             }
         }
@@ -171,6 +195,27 @@ namespace gzbits.DuckIt.Tests.Extensions
                         {
                             string[]? Value { get; set; }
                         }
+                    }
+                }
+            }
+
+            public class MultiProperty
+            {
+                public class ReadOnly
+                {
+                    public interface TwoProperties_Int_String
+                    {
+                        int IntValue { get; }
+                        string StringValue { get; }
+                    }
+                }
+
+                public class ReadWrite
+                {
+                    public interface TwoProperties_Int_String
+                    {
+                        int IntValue { get; set; }
+                        string StringValue { get; set; }
                     }
                 }
             }
