@@ -46,10 +46,10 @@ namespace gzbits.DuckIt.Tests.Extensions
                 {
                     SourceObjects.SingleProperty.StringProperty objectWithStringProperty = new() { Value = "value" };
 
-                    dynamic dynamicWithStringProperty = objectWithStringProperty.ToDynamic<Schemas.SingleProperty.StringProperty.ReadOnly>();
+                    dynamic dynamicWithStringProperty = objectWithStringProperty.ToDynamic<Schemas.SingleProperty.ReadOnly.StringProperty>();
                     Assert.AreEqual("value", dynamicWithStringProperty?.Value);
 
-                    dynamicWithStringProperty = objectWithStringProperty.ToDynamic<Schemas.SingleProperty.StringProperty.ReadWrite>();
+                    dynamicWithStringProperty = objectWithStringProperty.ToDynamic<Schemas.SingleProperty.ReadWrite.StringProperty>();
                     Assert.AreEqual("value", dynamicWithStringProperty?.Value);
                 }
 
@@ -58,10 +58,10 @@ namespace gzbits.DuckIt.Tests.Extensions
                 {
                     SourceObjects.SingleProperty.IntegerProperty objectWithIntegerProperty = new() { Value = 1 };
 
-                    dynamic dynamicWithIntegerProperty = objectWithIntegerProperty.ToDynamic<Schemas.SingleProperty.ValueTypeProperty.IntegerProperty.ReadOnly>();
+                    dynamic dynamicWithIntegerProperty = objectWithIntegerProperty.ToDynamic<Schemas.SingleProperty.ReadOnly.ValueTypeProperty.IntegerProperty>();
                     Assert.AreEqual(1, dynamicWithIntegerProperty?.Value);
 
-                    dynamicWithIntegerProperty = objectWithIntegerProperty.ToDynamic<Schemas.SingleProperty.ValueTypeProperty.IntegerProperty.ReadWrite>();
+                    dynamicWithIntegerProperty = objectWithIntegerProperty.ToDynamic<Schemas.SingleProperty.ReadOnly.ValueTypeProperty.IntegerProperty>();
                     Assert.AreEqual(1, dynamicWithIntegerProperty?.Value);
                 }
 
@@ -71,10 +71,10 @@ namespace gzbits.DuckIt.Tests.Extensions
                     string[] expectedValue = new[] { "string" };
                     SourceObjects.SingleProperty.EnumerableStringProperty objectWithEnumerableStringProperty = new() { Value = expectedValue };
 
-                    dynamic dynamicWithEnumerableStringProperty = objectWithEnumerableStringProperty.ToDynamic<Schemas.SingleProperty.EnumerableProperty.EnumerableString.ReadOnly>();
+                    dynamic dynamicWithEnumerableStringProperty = objectWithEnumerableStringProperty.ToDynamic<Schemas.SingleProperty.ReadOnly.EnumerableProperty.EnumerableStringProperty>();
                     Assert.AreEqual(expectedValue, dynamicWithEnumerableStringProperty.Value);
 
-                    dynamicWithEnumerableStringProperty = objectWithEnumerableStringProperty.ToDynamic<Schemas.SingleProperty.EnumerableProperty.EnumerableString.ReadWrite>();
+                    dynamicWithEnumerableStringProperty = objectWithEnumerableStringProperty.ToDynamic<Schemas.SingleProperty.ReadWrite.EnumerableProperty.EnumerableStringProperty>();
                     Assert.AreEqual(expectedValue, dynamicWithEnumerableStringProperty.Value);
                 }
             }
@@ -153,45 +153,47 @@ namespace gzbits.DuckIt.Tests.Extensions
         {
             public class SingleProperty
             {
-                public class StringProperty
+                public class ReadOnly
                 {
-                    public interface ReadOnly
+                    public interface StringProperty
                     {
                         string Value { get; }
                     }
 
-                    public interface ReadWrite
+                    public class ValueTypeProperty
                     {
-                        string Value { get; set; }
-                    }
-                }
-
-                public class ValueTypeProperty
-                {
-                    public class IntegerProperty
-                    {
-                        public interface ReadOnly
+                        public interface IntegerProperty
                         {
                             int Value { get; }
                         }
+                    }
 
-                        public interface ReadWrite
+                    public class EnumerableProperty
+                    {
+                        public interface EnumerableStringProperty
+                        {
+                            string[]? Value { get; }
+                        }
+                    }
+                }
+
+                public class ReadWrite
+                {
+                    public interface StringProperty
+                    {
+                        string Value { get; set; }
+                    }
+
+                    public class ValueTypeProperty
+                    {
+                        public interface IntegerProperty
                         {
                             int Value { get; set; }
                         }
                     }
-                }
-
-                public class EnumerableProperty
-                {
-                    public class EnumerableString
+                    public class EnumerableProperty
                     {
-                        public interface ReadOnly
-                        {
-                            string[]? Value { get; }
-                        }
-
-                        public interface ReadWrite
+                        public interface EnumerableStringProperty
                         {
                             string[]? Value { get; set; }
                         }
