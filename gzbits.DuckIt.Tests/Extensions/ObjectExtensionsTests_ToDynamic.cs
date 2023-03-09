@@ -48,9 +48,11 @@ namespace gzbits.DuckIt.Tests.Extensions
 
                     dynamic dynamicWithStringProperty = objectWithStringProperty.ToDynamic<Schemas.SingleProperty.ReadOnly.StringProperty>();
                     Assert.AreEqual("value", dynamicWithStringProperty?.Value);
+                    Assert.AreEqual(1, (dynamicWithStringProperty as ExpandoObject)?.Count());
 
                     dynamicWithStringProperty = objectWithStringProperty.ToDynamic<Schemas.SingleProperty.ReadWrite.StringProperty>();
                     Assert.AreEqual("value", dynamicWithStringProperty?.Value);
+                    Assert.AreEqual(1, (dynamicWithStringProperty as ExpandoObject)?.Count());
                 }
 
                 [TestMethod]
@@ -60,9 +62,11 @@ namespace gzbits.DuckIt.Tests.Extensions
 
                     dynamic dynamicWithIntegerProperty = objectWithIntegerProperty.ToDynamic<Schemas.SingleProperty.ReadOnly.ValueTypeProperty.IntegerProperty>();
                     Assert.AreEqual(1, dynamicWithIntegerProperty?.Value);
+                    Assert.AreEqual(1, (dynamicWithIntegerProperty as ExpandoObject)?.Count());
 
                     dynamicWithIntegerProperty = objectWithIntegerProperty.ToDynamic<Schemas.SingleProperty.ReadOnly.ValueTypeProperty.IntegerProperty>();
                     Assert.AreEqual(1, dynamicWithIntegerProperty?.Value);
+                    Assert.AreEqual(1, (dynamicWithIntegerProperty as ExpandoObject)?.Count());
                 }
 
                 [TestMethod]
@@ -73,9 +77,11 @@ namespace gzbits.DuckIt.Tests.Extensions
 
                     dynamic dynamicWithEnumerableStringProperty = objectWithEnumerableStringProperty.ToDynamic<Schemas.SingleProperty.ReadOnly.EnumerableProperty.EnumerableStringProperty>();
                     Assert.AreEqual(expectedValue, dynamicWithEnumerableStringProperty.Value);
+                    Assert.AreEqual(1, (dynamicWithEnumerableStringProperty as ExpandoObject)?.Count());
 
                     dynamicWithEnumerableStringProperty = objectWithEnumerableStringProperty.ToDynamic<Schemas.SingleProperty.ReadWrite.EnumerableProperty.EnumerableStringProperty>();
                     Assert.AreEqual(expectedValue, dynamicWithEnumerableStringProperty.Value);
+                    Assert.AreEqual(1, (dynamicWithEnumerableStringProperty as ExpandoObject)?.Count());
                 }
             }
 
