@@ -64,6 +64,13 @@ namespace gzbits.DuckIt.Extensions
                                     }
                                     outPutType.TryAdd(propertyName, outputValue);
                                 }
+                                else
+                                {
+                                    if (inputValue is not null)
+                                    {
+                                        throw new NotSupportedException($"{inputValue.GetType().FullName} is not supported.");
+                                    }
+                                }
                             }
                         }
                         else
