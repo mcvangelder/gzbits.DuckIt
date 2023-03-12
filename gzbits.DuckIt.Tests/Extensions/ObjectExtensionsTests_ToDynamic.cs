@@ -38,6 +38,14 @@ namespace gzbits.DuckIt.Tests.Extensions
         [TestClass]
         public class HasNonMatchingProperty
         {
+            [TestMethod]
+            public void MissingPropertyNameOnSource_ReturnDynamicWithoutPropertyName()
+            {
+                SourceObjects.SingleProperty.StringProperty objectWithStringProperty = new() { Value = "value" };
+
+                dynamic dynamicWithOutProperties = objectWithStringProperty.ToDynamic<Schemas.MultiProperty.ReadOnly.TwoProperties_Int_String>();
+                Assert.AreEqual(0, (dynamicWithOutProperties as ExpandoObject)?.Count());
+            }
 
             [TestMethod]
             public void NonMatchingPropertyType_ReturnsDynamicWithoutPropertyName()
@@ -97,23 +105,30 @@ namespace gzbits.DuckIt.Tests.Extensions
                     Assert.AreEqual(expectedValue, dynamicWithEnumerableStringProperty.Value);
                     Assert.AreEqual(1, (dynamicWithEnumerableStringProperty as ExpandoObject)?.Count());
                 }
-            }
 
-            [TestClass]
-            public class HasMatchingPropertyNameAndConvertableReturnType
-            {
 
-            }
+                [TestMethod]
+                public void ObjectProperty_ThrowsNotSupportedException()
+                {
+                    SourceObjects.SingleProperty.ObjectProperty objectWithObjectProperty = new() { Value = new object() };
+                    Assert.ThrowsException<NotSupportedException>(() =>
+                    {
+                        objectWithObjectProperty.ToDynamic<Schemas.SingleProperty.ReadOnly.ObjectProperty>();
+                    });
 
-            [TestClass]
-            public class HasMatchingPropertyNameAndNonConvertableReturnType
-            {
+                }
 
-            }
-
-            [TestClass]
-            public class HasNoMatchingPropertyName
-            {
+                [TestMethod]
+                public void EnumerableNonValueTypeProperty_ThrowsNotSupportedException()
+                {
+                    SourceObjects.SingleProperty.EnumerableObjectProperty objectWithObjectProperty = new() { Values = new SourceObjects[] { new SourceObjects() } };
+                    Assert.ThrowsException<NotSupportedException>(() =>
+                    {
+                        objectWithObjectProperty.ToDynamic<Schemas.SingleProperty.ReadOnly.EnumerableProperty.EnumerableObjectProperty>();
+                    });
+                    
+                    // TODO: Add tests for unsupported enumerable contents: e.g. an empty array of objects
+                }
 
             }
         }
@@ -157,6 +172,16 @@ namespace gzbits.DuckIt.Tests.Extensions
                 {
                     public string[]? Value { get; set; }
                 }
+
+                public class ObjectProperty
+                {
+                    public object? Value { get; set; }
+                }
+
+                public class EnumerableObjectProperty
+                {
+                    public object[]? Values { get; set; }
+                }
             }
 
             public class MultiProperty
@@ -198,6 +223,11 @@ namespace gzbits.DuckIt.Tests.Extensions
                         public interface EnumerableStringProperty
                         {
                             string[]? Value { get; }
+                        }
+
+                        public interface EnumerableObjectProperty
+                        {
+                            object[]? Values { get; }
                         }
                     }
                 }
