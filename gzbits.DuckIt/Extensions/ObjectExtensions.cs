@@ -38,9 +38,11 @@ namespace gzbits.DuckIt.Extensions
                     if (inputPropertyType.IsValueType || inputPropertyType.IsAssignableTo(typeof(string)))
                     {
                         object? outputValue = inputValue;
-                        if (inputValue is not null && property.PropertyType != inputPropertyType)
+                        if (property.PropertyType != inputPropertyType)
                         {
-                            outputValue = Convert.ChangeType(inputValue, property.PropertyType);
+                            // a property is considred a match if name and type are a match. skip this property
+                            // as this is not considered a match
+                            continue;
                         }
                         outPutType.TryAdd(propertyName, outputValue);
                     }
@@ -54,9 +56,11 @@ namespace gzbits.DuckIt.Extensions
                                 if (item is ValueType || item is string)
                                 {
                                     object? outputValue = inputValue;
-                                    if (inputValue is not null && property.PropertyType != inputPropertyType)
+                                    if (property.PropertyType != inputPropertyType)
                                     {
-                                        outputValue = Convert.ChangeType(inputValue, property.PropertyType);
+                                        // a property is considred a match if name and type are a match. skip this property
+                                        // as this is not considered a match
+                                        continue;
                                     }
                                     outPutType.TryAdd(propertyName, outputValue);
                                 }

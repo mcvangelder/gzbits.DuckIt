@@ -36,6 +36,20 @@ namespace gzbits.DuckIt.Tests.Extensions
         }
 
         [TestClass]
+        public class HasNonMatchingProperty
+        {
+
+            [TestMethod]
+            public void NonMatchingPropertyType_ReturnsDynamicWithoutPropertyName()
+            {
+                SourceObjects.SingleProperty.StringProperty objectWithStringProperty = new() { Value = "value" };
+
+                dynamic dynamicWithoutProperties = objectWithStringProperty.ToDynamic<Schemas.SingleProperty.ReadOnly.ValueTypeProperty.IntegerProperty>();
+                Assert.AreEqual(0, (dynamicWithoutProperties as ExpandoObject)?.Count());
+            }
+        }
+
+        [TestClass]
         public class SinglePropertySchemas
         {
             [TestClass]
@@ -170,8 +184,13 @@ namespace gzbits.DuckIt.Tests.Extensions
                     {
                         public interface IntegerProperty
                         {
-                            int Value { get; }
+                            int? Value { get; }
                         }
+                    }
+
+                    public interface ObjectProperty
+                    {
+                        object? Value { get; }
                     }
 
                     public class EnumerableProperty
