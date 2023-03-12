@@ -7,12 +7,12 @@ namespace gzbits.DuckIt.Extensions
 {
     public static class ObjectExtensions
     {
-        public static dynamic ToDynamic<TSchema>(this object obj)
+        internal static dynamic ToDynamic<TSchema>(this object obj)
         {
             return obj.ToDynamic(typeof(TSchema));
         }
 
-        public static dynamic ToDynamic(this object obj, Type schemaType)
+        internal static dynamic ToDynamic(this object obj, Type schemaType)
         {
             Type inputType = (obj ?? new object()).GetType();
             if (inputType.IsAssignableTo(typeof(IEnumerable)) || schemaType.IsAssignableTo(typeof(IEnumerable)))

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace gzbits.DuckIt.Extensions
 {
-    public static class TypeExtensions
+    internal static class TypeExtensions
     {
         public static IDictionary<string, PropertyInfo> GetReadableProperties(this Type type)
         {

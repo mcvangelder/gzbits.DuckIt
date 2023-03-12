@@ -1,6 +1,6 @@
 ﻿namespace gzbits.DuckIt.Sample.Web.App.Controllers.Schemas
 {
-    public interface IWeatherForecast
+    public interface IWeatherForecastImperial
     {
         DateTime Date { get; }
         string Summary { get; }

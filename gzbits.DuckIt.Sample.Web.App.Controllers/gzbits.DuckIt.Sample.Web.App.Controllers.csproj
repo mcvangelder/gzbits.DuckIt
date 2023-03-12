@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\gzbits.DuckIt.Mvc\gzbits.DuckIt.Mvc.csproj" />
+    <InternalsVisibleTo Include="gzbits.DuckIt.Mvc.Tests" />
   </ItemGroup>
 
 </Project>
