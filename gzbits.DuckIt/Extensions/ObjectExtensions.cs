@@ -5,9 +5,9 @@ using System.Reflection;
 
 namespace gzbits.DuckIt.Extensions
 {
-    public static class ObjectExtensions
+    internal static class ObjectExtensions
     {
-        internal static dynamic ToDynamic<TSchema>(this object obj)
+        internal static dynamic ToDynamic<TSchema>(this object obj) where TSchema : class
         {
             return obj.ToDynamic(typeof(TSchema));
         }
@@ -29,49 +29,34 @@ namespace gzbits.DuckIt.Extensions
             foreach (PropertyInfo property in schemaProperties.Values)
             {
                 string propertyName = property.Name;
-
-                if (inputProperties.ContainsKey(propertyName))
+                if (inputProperties.TryGetValue(propertyName, out PropertyInfo? inputProperty) && property.PropertyType == inputProperty.PropertyType)
                 {
-                    PropertyInfo inputProperty = inputProperties[propertyName];
                     Type inputPropertyType = inputProperty.PropertyType;
                     object? inputValue = inputProperty.GetValue(obj);
-                    if (inputPropertyType.IsValueType || inputPropertyType.IsAssignableTo(typeof(string)))
+                    if (inputPropertyType.IsSimpleType())
                     {
-                        object? outputValue = inputValue;
-                        if (property.PropertyType != inputPropertyType)
-                        {
-                            // a property is considred a match if name and type are a match. skip this property
-                            // as this is not considered a match
-                            continue;
-                        }
-                        outPutType.TryAdd(propertyName, outputValue);
+                        outPutType.TryAdd(propertyName, inputValue);
                     }
                     else
                     {
-                        var enumerable = inputValue as IEnumerable;
-                        if (enumerable != null)
+                        if (inputValue is IEnumerable enumerable)
                         {
+                            List<object> enumerableValues = new ();
                             foreach (var item in enumerable)
                             {
-                                if (item is ValueType || item is string)
+                                if (item.GetType().IsSimpleType())
                                 {
-                                    object? outputValue = inputValue;
-                                    if (property.PropertyType != inputPropertyType)
-                                    {
-                                        // a property is considred a match if name and type are a match. skip this property
-                                        // as this is not considered a match
-                                        continue;
-                                    }
-                                    outPutType.TryAdd(propertyName, outputValue);
+                                    enumerableValues.Add(item);
                                 }
                                 else
                                 {
-                                    if (inputValue is not null)
+                                    if (item is not null)
                                     {
-                                        throw new NotSupportedException($"{inputValue.GetType().FullName} is not supported.");
+                                        throw new NotSupportedException($"{item.GetType().FullName} is not supported.");
                                     }
                                 }
                             }
+                            outPutType.TryAdd(propertyName, enumerableValues);
                         }
                         else
                         {
