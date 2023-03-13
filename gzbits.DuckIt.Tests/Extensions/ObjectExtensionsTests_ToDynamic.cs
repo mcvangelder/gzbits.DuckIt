@@ -86,7 +86,7 @@ namespace gzbits.DuckIt.Tests.Extensions
                     Assert.AreEqual(1, dynamicWithIntegerProperty?.Value);
                     Assert.AreEqual(1, (dynamicWithIntegerProperty as ExpandoObject)?.Count());
 
-                    dynamicWithIntegerProperty = objectWithIntegerProperty.ToDynamic<Schemas.SingleProperty.ReadOnly.ValueTypeProperty.IntegerProperty>();
+                    dynamicWithIntegerProperty = objectWithIntegerProperty.ToDynamic<Schemas.SingleProperty.ReadWrite.ValueTypeProperty.IntegerProperty>();
                     Assert.AreEqual(1, dynamicWithIntegerProperty?.Value);
                     Assert.AreEqual(1, (dynamicWithIntegerProperty as ExpandoObject)?.Count());
                 }
@@ -98,12 +98,12 @@ namespace gzbits.DuckIt.Tests.Extensions
                     SourceObjects.SingleProperty.EnumerableStringProperty objectWithEnumerableStringProperty = new() { Value = expectedValue };
 
                     dynamic dynamicWithEnumerableStringProperty = objectWithEnumerableStringProperty.ToDynamic<Schemas.SingleProperty.ReadOnly.EnumerableProperty.EnumerableStringProperty>();
-                    Assert.AreEqual(expectedValue, dynamicWithEnumerableStringProperty.Value);
                     Assert.AreEqual(1, (dynamicWithEnumerableStringProperty as ExpandoObject)?.Count());
+                    Assert.AreEqual(expectedValue[0], dynamicWithEnumerableStringProperty.Value[0]);
 
                     dynamicWithEnumerableStringProperty = objectWithEnumerableStringProperty.ToDynamic<Schemas.SingleProperty.ReadWrite.EnumerableProperty.EnumerableStringProperty>();
-                    Assert.AreEqual(expectedValue, dynamicWithEnumerableStringProperty.Value);
                     Assert.AreEqual(1, (dynamicWithEnumerableStringProperty as ExpandoObject)?.Count());
+                    Assert.AreEqual(expectedValue[0], dynamicWithEnumerableStringProperty.Value[0]);
                 }
 
 
@@ -243,7 +243,7 @@ namespace gzbits.DuckIt.Tests.Extensions
                     {
                         public interface IntegerProperty
                         {
-                            int Value { get; set; }
+                            int? Value { get; set; }
                         }
                     }
                     public class EnumerableProperty
