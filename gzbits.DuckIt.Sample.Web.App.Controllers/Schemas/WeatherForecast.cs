@@ -6,4 +6,11 @@
         string Summary { get; }
         int TemperatureF { get; }
     }
+
+    public interface MetricWeatherForecast
+    {
+        DateTime Date { get; }
+        string Summary { get; }
+        int TemperatureC { get; }
+    }
 }

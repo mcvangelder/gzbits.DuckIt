@@ -21,6 +21,7 @@ namespace gzbits.DuckIt.Sample.Web.App.Controllers.Controllers
 
         [HttpGet("/imperial",Name = "GetWeatherForecastImperial")]
         [ProducesResponseType(typeof(IWeatherForecastImperial), 200)]
+        [ProducesResponseType(typeof(MetricWeatherForecast), 200)]
         public WeatherForecast GetImperial()
         {
             return new WeatherForecast
