@@ -9,7 +9,7 @@ namespace gzbits.DuckIt.Extensions
             return type.GetProperties().Where(info => info.CanRead).ToDictionary((prop) => prop.Name);
         }
 
-        internal static IDictionary<string, PropertyInfo> GetWritablePropertiesAsDictionary(this Type type)
+        internal static IDictionary<string, PropertyInfo> GetWritableProperties(this Type type)
         {
             return type.GetProperties().Where(info => info.CanWrite).ToDictionary((prop) => prop.Name);
         }
