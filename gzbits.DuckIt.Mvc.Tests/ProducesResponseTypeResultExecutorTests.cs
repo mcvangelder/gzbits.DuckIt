@@ -18,7 +18,7 @@ namespace gzbits.DuckIt.Mvc.Tests
         [TestMethod]
         public void ImperialWeatherForecast_ReturnsSummaryAndTemperatureF()
         {
-            var expectedPropertyNames = new HashSet<string>(){ "Summary", "TemperatureF"};
+            var expectedPropertyNames = new HashSet<string>(){ "summary", "date", "temperatureF"};
             var forecast = weatherForecastClient.GetFromJsonAsync<JsonElement>("imperial").Result;
 
             foreach (var property in forecast.EnumerateObject())
@@ -33,7 +33,7 @@ namespace gzbits.DuckIt.Mvc.Tests
         [TestMethod]
         public void FullWeatherForecast_ReturnsSummaryTemperatureFTemperatureCAndDate()
         {
-            var expectedPropertyNames = new HashSet<string>() { "Summary", "TemperatureF", "TemperatureC", "Date" };
+            var expectedPropertyNames = new HashSet<string>() { "summary", "temperatureF", "temperatureC", "date" };
             var forecast = weatherForecastClient.GetFromJsonAsync<JsonElement>("full").Result;
 
             foreach (var property in forecast.EnumerateObject())

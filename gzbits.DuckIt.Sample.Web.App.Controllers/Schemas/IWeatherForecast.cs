@@ -2,7 +2,7 @@
 {
     public interface IWeatherForecastImperial
     {
-        DateTime Date { get; }
+        DateTime? Date { get; }
         string Summary { get; }
         int TemperatureF { get; }
     }
