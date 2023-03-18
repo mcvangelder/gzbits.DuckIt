@@ -10,5 +10,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
     <InternalsVisibleTo Include="gzbits.DuckIt.Tests" />
+    <InternalsVisibleTo Include="gzbits.DuckIt$DynamicAssembly" />
   </ItemGroup>
 </Project>
